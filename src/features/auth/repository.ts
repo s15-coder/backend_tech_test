@@ -1,4 +1,5 @@
 import { Repository } from "typeorm";
+import jwt from "jsonwebtoken";
 import { AppDataSource } from "../../config/database";
 import AppUser from "../../types/model/app_user";
 
@@ -26,6 +27,7 @@ export default class AuthRespository {
         return savedUser;
     }
 
+
     findByEmail = async (email: string): Promise<AppUser | null> => {
         const user = await this.appUserRepository.findOne({
             where: {
@@ -33,5 +35,20 @@ export default class AuthRespository {
             }
         });
         return user;
+    }
+    
+    generateToken = (payload: object): string => {
+        return jwt.sign(payload, process.env.JWT_SECRET as string, {
+            expiresIn: '1h',
+        });
+    }
+
+    verifyToken = (token: string): object | string | null => {
+        try {
+            const decoded = jwt.verify(token, process.env.JWT_SECRET as string);
+            return decoded;
+        } catch (error) {
+            return null;
+        }
     }
 }

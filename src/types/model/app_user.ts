@@ -20,4 +20,14 @@ export default class AppUser {
 
     @Column({ type: 'timestamp', nullable: false, name: 'created_at' })
     createdAt!: Date;
+
+    toJSON() {
+        return {
+            id: this.id,
+            name: this.name,
+            email: this.email,
+            phone: this.phone,
+            createdAt: this.createdAt,
+        };
+    }
 }
