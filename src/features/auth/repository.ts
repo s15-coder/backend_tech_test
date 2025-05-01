@@ -1,30 +1,37 @@
-import User from "../../types/user";
-
+import { Repository } from "typeorm";
+import { AppDataSource } from "../../config/database";
+import AppUser from "../../types/model/app_user";
 
 export default class AuthRespository {
-
-    private db: MockDB;
+    appUserRepository: Repository<AppUser>
 
     constructor() {
-        this.db = new MockDB();
+        this.appUserRepository = AppDataSource.getRepository(AppUser)
     }
 
 
-    async register(email: string, password: string): Promise<User> {
-        const user: User = {
-            id: Math.floor(Math.random() * 1000),
-            email,
-            password
-        };
-        return this.db.create(user);
+    signUp = async (
+        email: string,
+        name: string,
+        plainPassword: string,
+        phone: string,
+    ): Promise<AppUser> => {
+        const newUser = new AppUser();
+        newUser.name = name;
+        newUser.email = email;
+        newUser.password = plainPassword;
+        newUser.phone = phone;
+        newUser.createdAt = new Date();
+        const savedUser = await this.appUserRepository.save(newUser);
+        return savedUser;
     }
 
-}
-class MockDB {
-    create(user: User): Promise<User> {
-        return new Promise((resolve) => {
-            resolve(user);
+    findByEmail = async (email: string): Promise<AppUser | null> => {
+        const user = await this.appUserRepository.findOne({
+            where: {
+                email: email
+            }
         });
+        return user;
     }
-
 }
