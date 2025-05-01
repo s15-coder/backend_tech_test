@@ -21,5 +21,18 @@ export default class AuthController {
         }
     }
 
+    public login = async (req: Request, res: Response): Promise<void> => {
+        const { email, password } = req.body;
+        try {
+            const loginResponse = await this.authService.login(email, password);
 
+            if (!loginResponse) {
+                res.status(401).json({ message: 'Invalid email or password' });
+                return;
+            }
+            res.status(200).json(loginResponse);
+        } catch (error) {
+            res.status(500).json({ message: 'Internal server error' });
+        }
+    }
 }

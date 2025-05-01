@@ -1,9 +1,12 @@
 import Router from 'express';
+
 import AuthRespository from '../features/auth/repository';
 import AuthService from '../features/auth/service';
 import AuthController from '../features/auth/controller';
+
 import { validateSignUp } from '../middlewares/validators/auth/validate-sign-up';
 import { PasswordEncryptionRepository } from '../repository/password-encryption';
+import { validateLogin } from '../middlewares/validators/auth/validate-login';
 
 const router = Router();
 
@@ -16,6 +19,12 @@ router.post(
     '/sign-up',
     validateSignUp,
     authController.signUp,
+);
+
+router.post(
+    '/login',
+    validateLogin,
+    authController.login,
 );
 
 export default router;

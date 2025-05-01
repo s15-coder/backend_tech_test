@@ -1,4 +1,5 @@
 import { PasswordEncryptionRepository } from "../../repository/password-encryption";
+import LoginResponse from "../../types/dto/login-response";
 import AppUser from "../../types/model/app_user";
 import AuthRespository from "./repository";
 
@@ -38,5 +39,37 @@ export default class AuthService {
         }
     }
 
+
+    async login(email: string, password: string): Promise<LoginResponse | undefined> {
+        try {
+            const user = await this.authRespository.findByEmail(email);
+            console.log(user?.id)
+            if (!user) {
+                return undefined;
+            }
+            const isPasswordValid = await this.passwordEncryptionRepository
+                .comparePassword(password, user.password);
+            if (!isPasswordValid) {
+                return undefined;
+            }
+            const token = await this.authRespository.generateToken(user.toJSON());
+            const response: LoginResponse = {
+                accessToken: token,
+                user: {
+                    email: user.email,
+                    phone: user.phone,
+                    name: user.name,
+                },
+            }
+            return response;
+        } catch (error) {
+            if (error instanceof Error) {
+                console.error('Error logging in:', error.message);
+            } else {
+                console.error('Unknown error logging in:', error);
+            }
+            throw error;
+        }
+    }
 }
 
