@@ -25,4 +25,23 @@ export default class TransactionController {
         }
     };
 
+    public getTransactions = async (
+        req: Request,
+        res: Response
+    ): Promise<any> => {
+        try {
+            const userId = parseInt(req.userId as string);
+            const { page, limit } = req.query;
+
+            const transactionResponse = await this.transactionService.getTransactions(
+                userId,
+                page as string | undefined,
+                limit as string | undefined,
+            );
+            return res.status(200).json(transactionResponse);
+        } catch (error) {
+            console.error('Error fetching transactions:', error);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+    };
 }

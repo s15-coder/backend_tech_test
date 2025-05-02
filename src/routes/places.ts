@@ -12,10 +12,7 @@ const placesController = new PlacesController(placesService);
 
 router.get(
     '/nearby-restaurants',
-    [
-        validateJwt,
-        ...validateCoordinates
-    ],
+    validateCoordinates,
     placesController.getNearbyRestaurants,
 );
 
