@@ -43,7 +43,6 @@ export default class AuthService {
     async login(email: string, password: string): Promise<LoginResponse | undefined> {
         try {
             const user = await this.authRespository.findByEmail(email);
-            console.log(user?.id)
             if (!user) {
                 return undefined;
             }
