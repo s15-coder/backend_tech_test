@@ -1,7 +1,7 @@
 import { Repository } from "typeorm";
 import jwt from "jsonwebtoken";
 import { AppDataSource } from "../../config/database";
-import AppUser from "../../types/model/app_user";
+import AppUser from "../../types/model/app_user.entity";
 
 export default class AuthRespository {
     appUserRepository: Repository<AppUser>
@@ -36,7 +36,7 @@ export default class AuthRespository {
         });
         return user;
     }
-    
+
     generateToken = (payload: object): string => {
         return jwt.sign(payload, process.env.JWT_SECRET as string, {
             expiresIn: '1h',
