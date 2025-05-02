@@ -1,14 +1,17 @@
+import { Request, Response } from "express";
 import TransactionService from "./service";
 
 export default class TransactionController {
     constructor(private transactionService: TransactionService) { }
 
-    public createTransaction = async (req: any, res: any) => {
+    public createTransaction = async (
+        req: Request,
+        res: Response
+    ): Promise<any> => {
         try {
 
             const { description, amount } = req.body;
-
-            const userId = req.userId;
+            const userId = parseInt(req.userId as string);
             const transaction = await this.transactionService.createTransaction(description, amount, userId);
             if (transaction) {
                 return res.status(201).json({ message: 'Transaction created successfully' });
