@@ -26,16 +26,17 @@ export default class TransactionRepository {
         page: number,
         limit: number
     ): Promise<TransactionsResponse> => {
+        const transactionRepository = AppDataSource.getRepository(AppTransaction);
         const offset = (page - 1) * limit;
         const whereQuery = { appUser: { id: userId } };
-        const transactions = await AppDataSource.getRepository(AppTransaction)
+        const transactions = await transactionRepository
             .find({
                 where: whereQuery,
                 skip: offset,
                 take: limit,
                 order: { transactionDate: 'DESC' },
             });
-        const totalTransactions = await AppDataSource.getRepository(AppTransaction)
+        const totalTransactions = await transactionRepository
             .count({
                 where: whereQuery,
             });
