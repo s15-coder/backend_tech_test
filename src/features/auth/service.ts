@@ -1,4 +1,4 @@
-import { PasswordEncryptionRepository } from "../../repository/password-encryption";
+import PasswordEncryptionRepository from "../../repository/password-encryption";
 import LoginResponse from "../../types/dto/login-response";
 import AppUser from "../../types/model/app_user.entity";
 import AuthRespository from "./repository";

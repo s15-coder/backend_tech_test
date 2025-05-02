@@ -28,7 +28,7 @@ export default class AuthRespository {
     }
 
 
-    findByEmail = async (email: string): Promise<AppUser | null> => {
+    public findByEmail = async (email: string): Promise<AppUser | null> => {
         const user = await this.appUserRepository.findOne({
             where: {
                 email: email
@@ -37,10 +37,11 @@ export default class AuthRespository {
         return user;
     }
 
-    generateToken = (payload: object): string => {
-        return jwt.sign(payload, process.env.JWT_SECRET as string, {
+    generateToken(payload: object): string {
+        const token = jwt.sign(payload, process.env.JWT_SECRET as string, {
             expiresIn: '1h',
         });
+        return token
     }
 
     verifyToken = (token: string): object | string | null => {

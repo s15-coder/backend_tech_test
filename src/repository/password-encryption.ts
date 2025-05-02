@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 
-export class PasswordEncryptionRepository {
+export default class PasswordEncryptionRepository {
     encryptPassword = async (password: string): Promise<string> => {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);

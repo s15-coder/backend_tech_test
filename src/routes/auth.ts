@@ -5,7 +5,7 @@ import AuthService from '../features/auth/service';
 import AuthController from '../features/auth/controller';
 
 import { validateSignUp } from '../middlewares/auth/validate-sign-up';
-import { PasswordEncryptionRepository } from '../repository/password-encryption';
+import PasswordEncryptionRepository from '../repository/password-encryption';
 import { validateLogin } from '../middlewares/auth/validate-login';
 
 const router = Router();
