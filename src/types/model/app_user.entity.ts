@@ -1,6 +1,6 @@
 
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, Transaction } from 'typeorm';
-import { AppTransaction } from './app_transaction.entity';
+import AppTransaction from './app_transaction.entity';
 
 @Entity()
 export default class AppUser {
@@ -19,10 +19,10 @@ export default class AppUser {
     @Column({ length: 256, nullable: false })
     password!: string;
 
-@Column({ type: 'timestamp', nullable: false, name: 'created_at' })
+    @Column({ type: 'timestamp', nullable: false, name: 'created_at' })
     createdAt!: Date;
 
-    @OneToMany(() => AppTransaction, (appTransaction) => appTransaction.appUser) // note: we will create author property in the Photo class below
+    @OneToMany(() => AppTransaction, (appTransaction) => appTransaction.appUser) 
     appTransactions!: AppTransaction[];
 
     toJSON() {

@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, CreateDa
 import AppUser from './app_user.entity';
 
 @Entity()
-export class AppTransaction {
+export default class AppTransaction {
     @PrimaryGeneratedColumn()
     id!: number;
 

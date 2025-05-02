@@ -1,5 +1,5 @@
 import { AppDataSource } from "../../config/database";
-import { AppTransaction } from "../../types/model/app_transaction.entity";
+import AppTransaction from "../../types/model/app_transaction.entity";
 import AppUser from "../../types/model/app_user.entity";
 
 export default class TransactionRepository {
