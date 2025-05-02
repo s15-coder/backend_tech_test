@@ -1,5 +1,6 @@
 
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, Transaction } from 'typeorm';
+import AppTransaction from './app_transaction.entity';
 
 @Entity()
 export default class AppUser {
@@ -20,6 +21,9 @@ export default class AppUser {
 
     @Column({ type: 'timestamp', nullable: false, name: 'created_at' })
     createdAt!: Date;
+
+    @OneToMany(() => AppTransaction, (appTransaction) => appTransaction.appUser) 
+    appTransactions!: AppTransaction[];
 
     toJSON() {
         return {

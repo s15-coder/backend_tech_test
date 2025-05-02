@@ -1,6 +1,7 @@
 
 import { DataSource } from 'typeorm';
-import AppUser from '../types/model/app_user';
+import AppUser from '../types/model/app_user.entity';
+import AppTransaction from '../types/model/app_transaction.entity';
 
 const AppDataSource = new DataSource({
     type: 'postgres',
@@ -11,7 +12,7 @@ const AppDataSource = new DataSource({
     database: process.env.DB_NAME,
     synchronize: false,
     logging: process.env.NODE_ENV === 'development',
-    entities: [AppUser],
+    entities: [AppUser, AppTransaction],
 });
 
 
