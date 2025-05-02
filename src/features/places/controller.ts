@@ -8,12 +8,8 @@ export default class PlacesController {
     public getNearbyRestaurants = async (req: Request, res: Response): Promise<any> => {
         const { latitude, longitude } = req.query;
 
-        const coordinates: LatLng = {
-            lat: parseFloat(latitude as string),
-            lng: parseFloat(longitude as string),
-        };
         try {
-            const restaurants = await this.placesService.getNearbyRestaurants(coordinates);
+            const restaurants = await this.placesService.getNearbyRestaurants(longitude as string, latitude as string);
             return res.status(200).json(restaurants);
         } catch (error) {
             console.error('Error fetching nearby restaurants:', error);
