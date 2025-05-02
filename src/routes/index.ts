@@ -3,7 +3,7 @@ import { Router } from 'express';
 import authRouter from './auth';
 import placesRouter from './places';
 import transactionRouter from './transaction';
-import validateJwt from '../middlewares/validators/validate-jwt';
+import validateJwt from '../middlewares/validate-jwt';
 
 const router = Router();
 

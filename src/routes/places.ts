@@ -2,8 +2,8 @@ import Router from 'express';
 import PlacesController from '../features/places/controller';
 import PlacesService from '../features/places/service';
 import PlacesRepository from '../features/places/repository';
-import validateJwt from '../middlewares/validators/validate-jwt';
-import validateCoordinates from '../middlewares/validators/places/validate-coordinates';
+import validateJwt from '../middlewares/validate-jwt';
+import validateCoordinates from '../middlewares/places/validate-coordinates';
 
 const router = Router()
 const placesRepository = new PlacesRepository();

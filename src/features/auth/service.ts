@@ -58,6 +58,7 @@ export default class AuthService {
                     email: user.email,
                     phone: user.phone,
                     name: user.name,
+
                 },
             }
             return response;
